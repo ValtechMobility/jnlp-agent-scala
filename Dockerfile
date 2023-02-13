@@ -23,14 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 gnupg \
 	       && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://download.docker.com/linux/debian/gpg --output gpg && \
-    apt-key add gpg && \
-    rm gpg
-
-RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee -a /etc/apt/sources.list.d/docker.list \
-               && echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list \
-               && echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list \
-               && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list \
+        && echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list \
+        && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 
 RUN apt-get update && apt-get -y install docker-ce sbt=${sbt_version} && rm -rf /var/lib/apt/lists/*
 
