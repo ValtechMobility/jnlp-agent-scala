@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 software-properties-common \
                 gnupg \
                 curl \
+                unzip \
 	       && rm -rf /var/lib/apt/lists/*
 
 RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list \
