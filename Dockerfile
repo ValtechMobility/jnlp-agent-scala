@@ -6,7 +6,6 @@ ARG version
 LABEL Description="This is a base image, which allows connecting Jenkins agents via JNLP protocols" Vendor="Jenkins project" Version="$version"
 
 ARG user=jenkins
-ARG sbt_version=1.6.2
 
 USER root
 
@@ -21,13 +20,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 apt-transport-https \
                 software-properties-common \
                 gnupg \
+                curl \
+                sbt \
 	       && rm -rf /var/lib/apt/lists/*
 
 RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list \
         && echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list \
         && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-
-RUN apt-get update && apt-get -y install docker-ce sbt=${sbt_version} && rm -rf /var/lib/apt/lists/*
 
 # Timezone needs to be set. Otherwise test fail (it is sad but what can you do...)
 RUN ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
