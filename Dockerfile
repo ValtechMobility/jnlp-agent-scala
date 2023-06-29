@@ -44,7 +44,7 @@ VOLUME ["/home/jenkins/.m2"]
 VOLUME ["/home/jenkins/.ivy2"]
 VOLUME ["/home/jenkins/.sbt"]
 
-ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
+ENTRYPOINT ["/usr/local/bin/jenkins-agent"] 
 
 
 
